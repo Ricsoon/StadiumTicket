@@ -1,3 +1,5 @@
+package control
+
 class Console private constructor() {
     companion object{
         fun readInt(msg: String): Int {

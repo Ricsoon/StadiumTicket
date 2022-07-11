@@ -1,4 +1,6 @@
+import control.Ingresso
+
 fun main() {
-    Ingresso().controle()
+    Ingresso()
 }
 

@@ -1,14 +1,33 @@
+package control
+
+import business.TicketBusiness
+
 class Ingresso {
 
-    fun controle(){
+    private val ticketBusiness = TicketBusiness()
+
+    init {
+        println("Bilheteria iniciada")
+        println(controle())
+    }
+
+    fun controle(): String{
         val idade = Console.readInt("Qual a sua idade? ")
         if (idade < 18){
-            println("Menores de Idade só entram com responsável mediante o mesmo.")
-            return
+            return "Menores de Idade só entram com responsável mediante o mesmo."
         }
 
         val tipoIngresso = Console.readString("Qual é o tipo do ingresso? ")
-        println(tipoIngresso)
+        if (!ticketBusiness.validarTipo(tipoIngresso)){
+            return "Negado, o tipo do ingresso não é válido."
+        }
+
+        val codigo = Console.readString("Qual é o código do ingresso? ")
+        if (!ticketBusiness.validarCodigo(codigo, tipoIngresso)){
+            return "Negado, o tipo do ingresso não é válido."
+        }
+
+        return "TODO!"
     }
 }
 
@@ -24,13 +43,13 @@ fun stadiumTicket() {
     print("Qual é o tipo do ingresso? ")
     var tipoIngresso = readLine()
     if (tipoIngresso != null && tipoIngresso != "") {
-        tipoIngresso = tipoIngresso.lowercase()
-        // Validação do tipo de Ingresso
+        /*tipoIngresso = tipoIngresso.lowercase()
+        // Validação do tipo de control.Ingresso
         if (tipoIngresso != "geral" && tipoIngresso != "cadeiras" && tipoIngresso != "camarote") {
             println("Negado, o tipo do ingresso não é válido.")
             return
-        }
-        print("Qual o código do Ingresso? ")
+        }*/
+        print("Qual o código do control.Ingresso? ")
         var ingresso = readLine()
         if (ingresso != null && ingresso != "") {
             ingresso = ingresso.lowercase()
