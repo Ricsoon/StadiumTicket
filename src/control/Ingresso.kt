@@ -1,10 +1,11 @@
 package control
 
-import business.TicketBusiness
+import business.TorcedorBusiness
+import entity.Ticket
 
 class Ingresso {
 
-    private val ticketBusiness = TicketBusiness()
+    private val torcedorBusiness = TorcedorBusiness()
 
     init {
         println("Bilheteria iniciada")
@@ -13,54 +14,22 @@ class Ingresso {
 
     fun controle(): String{
         val idade = Console.readInt("Qual a sua idade? ")
-        if (idade < 18){
+        val ticket = Ticket(idade = idade)
+
+        if (!torcedorBusiness.maiorDeIdade(ticket.idade)){
             return "Menores de Idade só entram com responsável mediante o mesmo."
         }
 
-        val tipoIngresso = Console.readString("Qual é o tipo do ingresso? ")
-        if (!ticketBusiness.validarTipo(tipoIngresso)){
+        ticket.tipo = Console.readString("Qual é o tipo do ingresso? ")
+        if (!torcedorBusiness.validarTipo(ticket.tipo)){
             return "Negado, o tipo do ingresso não é válido."
         }
 
-        val codigo = Console.readString("Qual é o código do ingresso? ")
-        if (!ticketBusiness.validarCodigo(codigo, tipoIngresso)){
+        ticket.codigo = Console.readString("Qual é o código do ingresso? ")
+        if (!torcedorBusiness.validarTorcedor(ticket)){
             return "Negado, o tipo do ingresso não é válido."
         }
 
-        return "TODO!"
-    }
-}
-
-fun stadiumTicket() {
-    /*print("Qual sua idade? ")
-    val idade = readLine()
-    if (idade != null && idade != "") {
-        if (idade.toInt() < 18) {
-            println("Menores de Idade só entram com responsável mediante o mesmo.")
-            return
-        }
-    }*/
-    print("Qual é o tipo do ingresso? ")
-    var tipoIngresso = readLine()
-    if (tipoIngresso != null && tipoIngresso != "") {
-        /*tipoIngresso = tipoIngresso.lowercase()
-        // Validação do tipo de control.Ingresso
-        if (tipoIngresso != "geral" && tipoIngresso != "cadeiras" && tipoIngresso != "camarote") {
-            println("Negado, o tipo do ingresso não é válido.")
-            return
-        }*/
-        print("Qual o código do control.Ingresso? ")
-        var ingresso = readLine()
-        if (ingresso != null && ingresso != "") {
-            ingresso = ingresso.lowercase()
-            if (tipoIngresso == "geral" && ingresso.startsWith("gr")) {
-                println("Seja bem-vindo(a), torcedor. Bom Jogo!! :)")
-            } else if ((tipoIngresso == "cadeiras" || tipoIngresso == "camarote") && ingresso.startsWith("sc")
-            ) {
-                println("Seja bem-vindo(a), sócio torcedor. Bom Jogo!! :)")
-            } else {
-                println("Negado, o tipo do ingresso não é válido.")
-            }
-        }
+        return "Bem-vindo(a), Bom Jogo!! :)"
     }
 }

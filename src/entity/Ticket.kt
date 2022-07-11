@@ -1,4 +1,4 @@
 package entity
 
-class Ticket(val tipo: String, val codigo: String) {
+class Ticket(var tipo: String = "", var codigo: String = "", val idade: Int) {
 }
